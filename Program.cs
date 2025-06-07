@@ -179,7 +179,57 @@ do {
             break;
         case "3":
             // Ensure animal ages and physical descriptions are complete.
-            Console.WriteLine("UNDER CONSTRUCTION  - please check back next month to see progress.");
+            // Console.WriteLine("UNDER CONSTRUCTION  - please check back next month to see progress.");
+
+            bool validInput = false;
+            bool validString = false;
+            // Store numeric age value
+            int numericAge = 0;
+
+            for (int i = 0; i < maxPets; i++)
+            {
+                if (ourAnimals[i, 0] != "ID #: " && ourAnimals[i, 2] == "Age: ?")
+                {                    
+                    Console.WriteLine();
+                    do
+                    {
+                        Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
+                        readResult = Console.ReadLine();
+                        validInput = int.TryParse(readResult, out numericAge);
+                        if (readResult != null && validInput == true)
+                        {                           
+                            animalAge = numericAge.ToString();
+                            ourAnimals[i, 2] = "Age: " + animalAge;
+                            break;
+                        }
+
+                        Console.WriteLine("Sorry, you entered an invalid number, please try again.");
+                        readResult = Console.ReadLine();
+                    } while (validInput == false);
+                }
+
+                if (ourAnimals[i, 0] != "ID #: " && ourAnimals[i, 4] == "Physical description: ")
+                {
+                    do
+                    {
+                        Console.WriteLine("Enter a physical description for ID #: c4 (size, color, breed, gender, weight, housebroken)");
+                        readResult = Console.ReadLine();
+
+                        if (readResult != null && readResult.Length > 0)
+                        {                          
+                            animalPhysicalDescription = readResult.ToString();
+                            ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+                            validString = true;
+                            break;
+                        }
+
+                        Console.WriteLine("Sorry, you entered an invalid number, please try again.");
+                        readResult = Console.ReadLine();
+                    } while (validString == false);
+                }
+            }
+
+            Console.WriteLine("Age and physical description fields are complete for all of our friends.");
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
